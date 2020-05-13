@@ -137,7 +137,7 @@ auto split(const std::basic_string<T> &str, const T *delimiter)
     typename std::basic_string<T>::size_type start_pos = 0, pos;
     do {
         pos = str.find(delimiter, start_pos);
-        container.insert(container.end(), str.substr(start_pos, pos));
+        container.insert(container.end(), str.substr(start_pos, pos - start_pos));
         start_pos = pos + len;
     } while (pos != std::basic_string<T>::npos);
     return container;
