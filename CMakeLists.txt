@@ -11,6 +11,6 @@ include_directories(./)
 include_directories(include)
 
 add_library(${PROJECT_NAME} STATIC
-    include/string_essentials/string_essentials.h
+    include/string_essentials/string_essentials.hpp
     src/string_essentials.cpp
 )

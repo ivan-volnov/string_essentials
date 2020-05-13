@@ -26,7 +26,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include "string_essentials/string_essentials.h"
+#include "string_essentials/string_essentials.hpp"
 
 
 constexpr uint32_t UTF8_ACCEPT = 0;
