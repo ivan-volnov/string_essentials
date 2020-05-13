@@ -8,9 +8,10 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-rtti")
 
 include_directories(./)
-include_directories(include)
 
 add_library(${PROJECT_NAME} STATIC
     include/string_essentials/string_essentials.hpp
     src/string_essentials.cpp
 )
+
+target_include_directories(${PROJECT_NAME} PUBLIC include)
