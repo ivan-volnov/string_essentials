@@ -28,6 +28,7 @@ SOFTWARE.
 
 #include "string_essentials/string_essentials.hpp"
 
+constexpr auto whitespace_chars = " \t\n\r\f\v";
 
 constexpr uint32_t UTF8_ACCEPT = 0;
 constexpr uint32_t UTF8_REJECT = 12;
@@ -229,5 +230,49 @@ std::string string_essentials::url_encode(const std::string &str)
             result.append(1, dec2hex[c & 0b1111]);
         }
     }
+    return result;
+}
+
+void string_essentials::strip_html_tags(std::string &str)
+{
+    size_t start_pos = 0, end_pos;
+    while ((start_pos = str.find('<', start_pos)) != std::string::npos
+          && (end_pos = str.find('>', start_pos)) != std::string::npos) {
+        str.erase(start_pos, end_pos - start_pos + 1);
+    }
+    replace(str, "&nbsp;", " ");
+    replace(str, "&lt;", "<");
+    replace(str, "&gt;", ">");
+    replace(str, "&amp;", "&");
+    replace(str, "&quot;", "\"");
+    replace(str, "&apos;", "'");
+}
+
+void string_essentials::trim_left(std::string &str)
+{
+    str.erase(0, str.find_first_not_of(whitespace_chars));
+}
+
+void string_essentials::trim_right(std::string &str)
+{
+    str.erase(str.find_last_not_of(whitespace_chars) + 1);
+}
+
+void string_essentials::trim(std::string &str)
+{
+    trim_right(str);
+    trim_left(str);
+}
+
+std::string string_essentials::trim_copy(const std::string &str)
+{
+    const auto pos = str.find_first_not_of(whitespace_chars);
+    return pos == std::string::npos ? "" : str.substr(pos, str.find_last_not_of(whitespace_chars) - pos + 1);
+}
+
+std::string string_essentials::trim_copy(std::string &&str)
+{
+    auto result = std::move(str);
+    trim(result);
     return result;
 }

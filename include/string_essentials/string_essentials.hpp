@@ -158,7 +158,35 @@ void replace(std::basic_string<T> &str, const T *src, const T *dst)
     }
 }
 
+template <typename T>
+void replace_recursive(std::basic_string<T> &str, const T *src, const T *dst)
+{
+    const auto src_len = std::char_traits<T>::length(src);
+    typename std::basic_string<T>::size_type pos = 0;
+    while ((pos = str.find(src, pos)) != std::basic_string<T>::npos) {
+        str.replace(pos, src_len, dst);
+    }
+}
+
+template <typename T>
+void erase(std::basic_string<T> &str, const T *src)
+{
+    const auto src_len = std::char_traits<T>::length(src);
+    typename std::basic_string<T>::size_type pos = 0;
+    while ((pos = str.find(src, pos)) != std::basic_string<T>::npos) {
+        str.erase(pos, src_len);
+    }
+}
+
 std::string url_encode(const std::string &str);
+void strip_html_tags(std::string &str);
+
+void trim_left(std::string &str);
+void trim_right(std::string &str);
+void trim(std::string &str);
+
+std::string trim_copy(const std::string &str);
+std::string trim_copy(std::string &&str);
 
 } // namespace string_essentials
 
