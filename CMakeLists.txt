@@ -16,3 +16,8 @@ target_include_directories(${PROJECT_NAME}
     PRIVATE ./
     PUBLIC include
 )
+
+option(ENABLE_TESTS "Enable tests" OFF)
+if (${ENABLE_TESTS})
+    add_subdirectory(test)
+endif()
